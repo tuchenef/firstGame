@@ -2,10 +2,13 @@ package io.github.firstGame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -18,6 +21,9 @@ public class Main extends ApplicationAdapter {
 
     SpriteBatch spriteBatch;
     FitViewport viewport;
+
+    // Sprite variable, basically the thing to do movement
+    Sprite player;
 
     @Override
     public void create() {
@@ -32,6 +38,15 @@ public class Main extends ApplicationAdapter {
         // implementing rendering
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8,5);
+
+        // implementing sprite
+        player = new Sprite(character); // Basically associating the sprite to the character
+        player.setSize(1, 1);
+
+        // background music
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(.25f);
+        backgroundMusic.play();
     }
 
     @Override
@@ -49,10 +64,32 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
+        float speed = 4f;
+        float delta = Gdx.graphics.getDeltaTime();
 
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.flip(true, false);
+            player.translateX(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.setRotation(270f);
+            player.translateX(-speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.setRotation(180f);
+            player.translateY(speed * delta);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.setRotation(0f);
+            player.translateY(-speed * delta);
+        }
     }
 
     private void logic() {
+        // Store the worldWidth and worldHeight as local variables for brevity
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+
+        // Clamp x to values between 0 and worldWidth (so the player can't go off the screen)
+        player.setX(MathUtils.clamp(player.getX(), 0, worldWidth));
+        player.setY(MathUtils.clamp(player.getY(), 0, worldHeight));
 
     }
 
@@ -68,7 +105,7 @@ public class Main extends ApplicationAdapter {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
         spriteBatch.draw(background, 0,0, worldWidth, worldHeight);
-        spriteBatch.draw(character,0, 0, 1,1); //le perso commence au coin à gauche et chaque case fait la taille du perso
+        player.draw(spriteBatch);
 
 
         spriteBatch.end();
