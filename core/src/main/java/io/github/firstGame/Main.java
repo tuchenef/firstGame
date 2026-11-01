@@ -41,7 +41,7 @@ public class Main extends ApplicationAdapter {
 
         // implementing sprite
         player = new Sprite(character); // Basically associating the sprite to the character
-        player.setSize(1, 1);
+        player.setSize(.5f, .5f);
 
         // background music
         backgroundMusic.setLooping(true);
@@ -64,20 +64,18 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        float speed = 4f;
+        float speed = 10f;
         float delta = Gdx.graphics.getDeltaTime();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.flip(true, false);
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             player.translateX(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.setRotation(270f);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             player.translateX(-speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.setRotation(180f);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             player.translateY(speed * delta);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.setRotation(0f);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             player.translateY(-speed * delta);
         }
     }
