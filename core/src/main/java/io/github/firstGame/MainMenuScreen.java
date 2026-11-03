@@ -32,9 +32,9 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, "Reach the door", 1, 1);
         game.batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.justTouched()) {
             game.setScreen(new GameScreen(game));
-            dispose(); // NEXT PROBLEM TO LOOK ON
+            // NEXT PROBLEM TO LOOK ON
         }
 
     }

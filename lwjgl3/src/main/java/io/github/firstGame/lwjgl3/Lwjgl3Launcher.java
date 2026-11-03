@@ -1,5 +1,6 @@
 package io.github.firstGame.lwjgl3;
 
+
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.github.firstGame.Drop;
@@ -10,6 +11,7 @@ public class Lwjgl3Launcher {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
     }
+
 
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new Drop(), getDefaultConfiguration());

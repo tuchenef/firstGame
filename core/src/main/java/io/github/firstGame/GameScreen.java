@@ -107,8 +107,8 @@ public class GameScreen implements Screen {
         float worldHeight = game.viewport.getWorldHeight();
 
         // Clamp x to values between 0 and worldWidth (so the player can't go off the screen)
-        player.setX(MathUtils.clamp(player.getX(), 0, worldWidth));
-        player.setY(MathUtils.clamp(player.getY(), 0, worldHeight));
+        player.setX(MathUtils.clamp(player.getX(), 0, worldWidth - player.getWidth()));
+        player.setY(MathUtils.clamp(player.getY(), 0, worldHeight - player.getWidth()));
 
     }
 
@@ -118,12 +118,12 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(viewport.getCamera().combined);
 
         // where to draw the canvas for the game
-        spriteBatch.begin();
+        game.batch.begin();
 
         // storing the worldwidth and worldheight to use them as the background width and height (to cover all surface)
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
-        game.batch.draw(background, 0,0, worldWidth, worldHeight);
+        game.batch.draw(background, 0,0, viewport.getWorldWidth(), viewport.getWorldHeight());
         player.draw(game.batch);
 
 
@@ -135,6 +135,7 @@ public class GameScreen implements Screen {
             backgroundMusic.dispose();
             background.dispose();
             character.dispose();
+            spriteBatch.dispose();
         }
     }
 
