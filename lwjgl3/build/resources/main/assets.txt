@@ -1,3 +1,4 @@
 background.jpg
 backgroundMusic.mp3
 perso1.png
+wall.jpg

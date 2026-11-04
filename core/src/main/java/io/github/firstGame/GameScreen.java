@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
 
     Texture character;
     Texture background;
+    Texture wall;
     Music backgroundMusic;
 
 
@@ -33,13 +34,14 @@ public class GameScreen implements Screen {
         // Texture: character and background
         character = new Texture("perso1.png");
         background = new Texture("background.jpg");
+        wall = new Texture("wall.jpg");
 
         // Sound effects
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3"));
 
         // implementing rendering
         spriteBatch = new SpriteBatch();
-        viewport = new FitViewport(8,5);
+        viewport = new FitViewport(8,8);
 
         // implementing sprite
         player = new Sprite(character); // Basically associating the sprite to the character
@@ -89,15 +91,21 @@ public class GameScreen implements Screen {
         float delta = Gdx.graphics.getDeltaTime();
 
 
+        // Définir l'origine de rotation au centre du sprite
+        player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             player.translateX(speed * delta);
+            player.setRotation(90f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             player.translateX(-speed * delta);
+            player.setRotation(270f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             player.translateY(speed * delta);
+            player.setRotation(180f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             player.translateY(-speed * delta);
+            player.setRotation(0f);
         }
     }
 
@@ -124,6 +132,7 @@ public class GameScreen implements Screen {
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
         game.batch.draw(background, 0,0, viewport.getWorldWidth(), viewport.getWorldHeight());
+
         player.draw(game.batch);
 
 
