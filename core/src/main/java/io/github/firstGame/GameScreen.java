@@ -8,17 +8,23 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import javax.swing.*;
+
 public class GameScreen implements Screen {
     final Drop game;
+
+    ShapeRenderer shapeRenderer = new ShapeRenderer();   // the squares on the background
 
     Texture character;
     Texture background;
     Texture wall;
     Music backgroundMusic;
+    Music footsteps;
 
 
     SpriteBatch spriteBatch;
@@ -38,6 +44,7 @@ public class GameScreen implements Screen {
 
         // Sound effects
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3"));
+        footsteps = Gdx.audio.newMusic(Gdx.files.internal("footsteps.mp3"));
 
         // implementing rendering
         spriteBatch = new SpriteBatch();
@@ -45,7 +52,7 @@ public class GameScreen implements Screen {
 
         // implementing sprite
         player = new Sprite(character); // Basically associating the sprite to the character
-        player.setSize(.5f, .5f);
+        player.setSize(1f, 1f);
 
         // background music
         backgroundMusic.setLooping(true);
@@ -84,35 +91,34 @@ public class GameScreen implements Screen {
         input();
         logic();
         draw();
+
     }
 
     private void input() {
-        float speed = 10f;
-        float delta = Gdx.graphics.getDeltaTime();
-
+        float step = 1f;
 
         // Définir l'origine de rotation au centre du sprite
         player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            player.translateX(speed * delta);
+            player.translateX(step);
             player.setRotation(90f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            player.translateX(-speed * delta);
+            player.translateX(-step);
             player.setRotation(270f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.translateY(speed * delta);
+            player.translateY(step);
             player.setRotation(180f);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            player.translateY(-speed * delta);
+            player.translateY(-step);
             player.setRotation(0f);
         }
     }
 
     private void logic() {
         // Store the worldWidth and worldHeight as local variables for brevity
-        float worldWidth = game.viewport.getWorldWidth();
-        float worldHeight = game.viewport.getWorldHeight();
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
 
         // Clamp x to values between 0 and worldWidth (so the player can't go off the screen)
         player.setX(MathUtils.clamp(player.getX(), 0, worldWidth - player.getWidth()));
@@ -124,18 +130,34 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(Color.BLACK);
         game.viewport.apply();
         game.batch.setProjectionMatrix(viewport.getCamera().combined);
+        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
 
-        // where to draw the canvas for the game
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+
+        // Dessin du background
         game.batch.begin();
+        game.batch.draw(background, 0,0, worldWidth, worldHeight);
+        game.batch.end();
 
-        // storing the worldwidth and worldheight to use them as the background width and height (to cover all surface)
-        float worldWidth = game.viewport.getWorldWidth();
-        float worldHeight = game.viewport.getWorldHeight();
-        game.batch.draw(background, 0,0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        // Dessiner la grille
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.DARK_GRAY);
 
+        float tileSize = 1f;
+
+        for (float x = 0; x <= worldWidth; x += tileSize) {
+            shapeRenderer.line(x, 0, x, worldHeight);
+        }
+        for (float y = 0; y <= worldHeight; y += tileSize) {
+            shapeRenderer.line(0, y, worldWidth, y);
+        }
+
+        shapeRenderer.end();
+
+        // dessin du personnage
+        game.batch.begin();
         player.draw(game.batch);
-
-
         game.batch.end();
     }
 
@@ -145,6 +167,8 @@ public class GameScreen implements Screen {
             background.dispose();
             character.dispose();
             spriteBatch.dispose();
+            shapeRenderer.dispose();
+            wall.dispose();
         }
     }
 
