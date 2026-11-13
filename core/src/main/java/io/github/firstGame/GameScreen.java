@@ -23,8 +23,11 @@ public class GameScreen implements Screen {
     Texture character;
     Texture background;
     Texture wall;
+    // Texture rotatedWall;
     Music backgroundMusic;
     Music footsteps;
+    Music iveGotThis;
+    Texture door;
 
 
     SpriteBatch spriteBatch;
@@ -41,10 +44,12 @@ public class GameScreen implements Screen {
         character = new Texture("perso1.png");
         background = new Texture("background.jpg");
         wall = new Texture("wall.jpg");
+        door = new Texture("porte.png");
 
         // Sound effects
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3"));
         footsteps = Gdx.audio.newMusic(Gdx.files.internal("footsteps.mp3"));
+        iveGotThis = Gdx.audio.newMusic(Gdx.files.internal("ive-got-this.mp3"));
 
         // implementing rendering
         spriteBatch = new SpriteBatch();
@@ -58,11 +63,14 @@ public class GameScreen implements Screen {
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(.25f);
         backgroundMusic.play();
+
+        iveGotThis.setVolume(.25f);
     }
 
     @Override
     public void show() {
         backgroundMusic.play();
+        iveGotThis.play();
     }
 
     @Override
@@ -82,7 +90,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        backgroundMusic.stop();
+        iveGotThis.stop();
     }
 
     @Override
@@ -100,18 +109,62 @@ public class GameScreen implements Screen {
         // Définir l'origine de rotation au centre du sprite
         player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
 
+        if (player.getX() == 7 && player.getY() == 0) {
+            game.setScreen(new EndScreen(game));
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            player.translateX(step);
-            player.setRotation(90f);
+            if ((player.getX() == 1 && (player.getY() == 0 || player.getY() == 1)) ||
+                (player.getX() == 3 && (player.getY() == 2 || player.getY() == 3)) ||
+                (player.getX() == 4 && (player.getY() == 4 || player.getY() == 5)) ||
+                (player.getX() == 5 && (player.getY() == 0 || player.getY() == 1 || player.getY() == 2 || player.getY() == 3)) ||
+                (player.getX() == 6 && (player.getY() == 6 || player.getY() == 7)) ||
+                (player.getX() == 2 && (player.getY() == 6 || player.getY() == 7))) {
+                        player.setRotation(90f);
+                    } else {
+                        player.translateX(step);
+                        player.setRotation(90f);
+                    }
+//            footsteps.setLooping(false);
+//            footsteps.setVolume(1f);
+//            footsteps.play();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            player.translateX(-step);
-            player.setRotation(270f);
+            if ((player.getX() == 2 && player.getY() == 4) ||
+                (player.getX() == 3 && (player.getY() == 0 || player.getY() == 1)) ||
+                (player.getX() == 5 && (player.getY() == 2 || player.getY() == 3)) ||
+                (player.getX() == 7 && (player.getY() == 0 || player.getY() == 1 || player.getY() == 2 || player.getY() == 3)) ||
+                (player.getX() == 6 && (player.getY() == 4 || player.getY() == 5)) ||
+                (player.getX() == 4 && (player.getY() == 6 || player.getY() == 7))) {
+                        player.setRotation(270f);
+            } else {
+                player.translateX(-step);
+                player.setRotation(270f);
+            }
+
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.translateY(step);
-            player.setRotation(180f);
+            if (((player.getX() == 0 || player.getX() == 1) && player.getY() == 3) ||
+                (player.getX() == 4 && player.getY() == 1) ||
+                (player.getX() == 5 && player.getY() == 3) ||
+                (player.getX() == 7 && player.getY() == 5) ||
+                (player.getX() == 3 && player.getY() == 5)) {
+                        player.setRotation(180f);
+            } else {
+                player.translateY(step);
+                player.setRotation(180f);
+            }
+
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            player.translateY(-step);
-            player.setRotation(0f);
+            if (((player.getX() == 0 || player.getX() == 1) && player.getY() == 5) ||
+                (player.getX() == 2 && player.getY() == 2) ||
+                (player.getX() == 4 && player.getY() == 4) ||
+                (player.getX() == 5 && player.getY() == 6) ||
+                (player.getX() == 6 && player.getY() == 4)) {
+                        player.setRotation(0f);
+            } else {
+                player.translateY(-step);
+                player.setRotation(0f);
+
+            }
         }
     }
 
@@ -123,7 +176,6 @@ public class GameScreen implements Screen {
         // Clamp x to values between 0 and worldWidth (so the player can't go off the screen)
         player.setX(MathUtils.clamp(player.getX(), 0, worldWidth - player.getWidth()));
         player.setY(MathUtils.clamp(player.getY(), 0, worldHeight - player.getWidth()));
-
     }
 
     private void draw() {
@@ -155,9 +207,25 @@ public class GameScreen implements Screen {
 
         shapeRenderer.end();
 
+        // dessin des murs
+        game.batch.begin();
+        game.batch.draw(wall, 2, 0, 1f, 2f);
+        game.batch.draw(wall, 0, 4, 2f, 1f);
+        game.batch.draw(wall, 4, 2, 1f, 2f);
+        game.batch.draw(wall, 6, 0, 1f, 4f);
+        game.batch.draw(wall, 7, 6, 1f, 2f);
+        game.batch.draw(wall, 3, 6, 1f, 2f);
+        game.batch.draw(wall, 5, 4, 1f, 2f);
+        game.batch.end();
+
         // dessin du personnage
         game.batch.begin();
         player.draw(game.batch);
+        game.batch.end();
+
+        // dessin de la porte
+        game.batch.begin();
+        game.batch.draw(door, 7, 0, 1f, 1f);
         game.batch.end();
     }
 
@@ -169,6 +237,8 @@ public class GameScreen implements Screen {
             spriteBatch.dispose();
             shapeRenderer.dispose();
             wall.dispose();
+            iveGotThis.dispose();
+            door.dispose();
         }
     }
 

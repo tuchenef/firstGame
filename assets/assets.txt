@@ -1,5 +1,12 @@
 background.jpg
 backgroundMusic.mp3
+endScreen.jpg
 footsteps.mp3
+ive-got-this.mp3
+mainScreen.jpg
+outroSong.mp3
 perso1.png
+porte.png
+steps.mp3
+tiki-tiki-phonk.mp3
 wall.jpg

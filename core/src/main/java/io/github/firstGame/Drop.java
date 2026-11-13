@@ -21,7 +21,7 @@ public class Drop extends Game {
 
         // Default font, definitely look to put another one
         font = new BitmapFont();
-        viewport = new FitViewport(8 ,5);
+        viewport = new FitViewport(8 ,8);
 
         //font has 15pt, but we need to scale it to our viewport by ratio of viewport height to screen height
         font.setUseIntegerPositions(false);
