@@ -23,7 +23,6 @@ public class GameScreen implements Screen {
     Texture character;
     Texture background;
     Texture wall;
-    // Texture rotatedWall;
     Music backgroundMusic;
     Music footsteps;
     Music iveGotThis;
@@ -110,7 +109,7 @@ public class GameScreen implements Screen {
         player.setOrigin(player.getWidth() / 2f, player.getHeight() / 2f);
 
         if (player.getX() == 7 && player.getY() == 0) {
-            game.setScreen(new EndScreen(game));
+            game.setScreen(new SecondLevel(game));
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {

@@ -4,6 +4,7 @@ endScreen.jpg
 footsteps.mp3
 ive-got-this.mp3
 mainScreen.jpg
+monster.png
 outroSong.mp3
 perso1.png
 porte.png
