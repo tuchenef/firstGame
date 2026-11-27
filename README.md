@@ -6,7 +6,7 @@ This project is a 2D game with a simple objective: reach the door to get to the 
 
 ## Technologies used
 
-- **Java** : Langage used in the project.
+- **Java** : Language used in the project.
 - **LibGDX** : A Java framework used to develop the game.
 - **Gradle** : Build automation tool used to compile and manage the project.
 
@@ -21,16 +21,16 @@ My goal is to give each level its own identity by introducing different gameplay
 ## Screenshots
 
 ![Level 1 showcase](assets/niveau1.png)
-*This how the first level starts.*
+*This is how the first level starts.*
 
 
 ## How to run the game
 
-Since the game is still in developpement, it is not currently available as a standalone download.
+Since the game is still in development, it is not currently available as a standalone download.
 
 So for now the only way to play is to download this repository. After downloading, you should open the file in an IDE (IntelliJ IDEA is recommended) and run the Lwjgl3Launcher which you can find in this path : lwjgl3/src/main/java/io.github.firstGame.lwjgl3
 
-## Futur upgrades
+## Futur Improvements
 
 There's still a lot to be done! Here are some of the main features I plan to implement:
 
