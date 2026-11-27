@@ -1,33 +1,31 @@
 # idkman
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+## Project Presentation
+This project is a 2D game with an unique objective, reach the door to get to the next level.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+## Technologies used
 
-## Platforms
+- **Java** : Langage used in the project.
+- **libGDX** : A Java framework used to build video games.
+- **Gradle** : Tool used to compile code and running tests.
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+## Fonctionnality
 
-## Gradle
+Actually the game only have one complete level. The way to play the game is pretty straighforward, by using the directionnal keys, you need to reach the door while being careful to the obstacles.
+If you succeed, you can pass onto the next level.
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+While not having much to showcase for the moment, the objective is to give each level it's unicity by setting a different mechanics for them, which we will further explore in the Futur Upgrades section down below.
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+## Screenshots
+
+![Level 1 showcase](/assets/niveau1.png")
+*This how the first level starts.*
+
+
+## How to lauch the game
+
+Since the game is still in developpement, I haven't published the game in any plateform. So for now the only way to play is to download this file.
+After downloading, you should open the file in an IDE (I suggest you use ItelliJ IDEA) and select
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
