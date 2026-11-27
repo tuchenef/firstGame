@@ -13,20 +13,16 @@ public class MainMenuScreen implements Screen {
     final Drop game;
 
     Texture mainScreen;
-    Music introSong;
 
     public MainMenuScreen(Drop game) {
         mainScreen = new Texture("mainScreen.jpg");
         this.game = game;
 
-        introSong = Gdx.audio.newMusic(Gdx.files.internal("tiki-tiki-phonk.mp3"));
-        introSong.setLooping(true);
-        introSong.setVolume(0.5f);
     }
 
     @Override
     public void show() {
-        introSong.play();
+
     }
 
     @Override
@@ -64,12 +60,11 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void hide() {
-        introSong.stop();
+
     }
 
     @Override
     public void dispose() {
         mainScreen.dispose();
-        introSong.dispose();
     }
 }

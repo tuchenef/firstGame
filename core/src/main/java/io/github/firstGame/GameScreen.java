@@ -25,7 +25,6 @@ public class GameScreen implements Screen {
     Texture wall;
     Music backgroundMusic;
     Music footsteps;
-    Music iveGotThis;
     Texture door;
 
 
@@ -48,8 +47,6 @@ public class GameScreen implements Screen {
         // Sound effects
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3"));
         footsteps = Gdx.audio.newMusic(Gdx.files.internal("footsteps.mp3"));
-        iveGotThis = Gdx.audio.newMusic(Gdx.files.internal("ive-got-this.mp3"));
-
         // implementing rendering
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8,8);
@@ -63,13 +60,11 @@ public class GameScreen implements Screen {
         backgroundMusic.setVolume(.25f);
         backgroundMusic.play();
 
-        iveGotThis.setVolume(.25f);
     }
 
     @Override
     public void show() {
         backgroundMusic.play();
-        iveGotThis.play();
     }
 
     @Override
@@ -90,7 +85,6 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {
         backgroundMusic.stop();
-        iveGotThis.stop();
     }
 
     @Override
@@ -236,7 +230,6 @@ public class GameScreen implements Screen {
             spriteBatch.dispose();
             shapeRenderer.dispose();
             wall.dispose();
-            iveGotThis.dispose();
             door.dispose();
         }
     }

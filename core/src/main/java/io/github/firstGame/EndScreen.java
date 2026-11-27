@@ -11,19 +11,15 @@ public class EndScreen implements Screen {
 
     final Drop game;
     Texture endScreen;
-    Music outroSong;
+
 
     public EndScreen(Drop game) {
         this.game = game;
         endScreen = new Texture("endScreen.jpg");
-
-        outroSong = Gdx.audio.newMusic(Gdx.files.internal("outroSong.mp3"));
-        outroSong.setVolume(0.25f);
     }
 
     @Override
     public void show() {
-        outroSong.play();
     }
 
     @Override
@@ -56,12 +52,11 @@ public class EndScreen implements Screen {
 
     @Override
     public void hide() {
-        outroSong.stop();
+
     }
 
     @Override
     public void dispose() {
         endScreen.dispose();
-        outroSong.dispose();
     }
 }

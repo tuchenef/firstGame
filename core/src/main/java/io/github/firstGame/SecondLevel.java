@@ -175,7 +175,6 @@ public class SecondLevel implements Screen {
         // dessin du personnage
         game.batch.begin();
         player.draw(game.batch);
-        player.scroll(-6, 0);
         game.batch.end();
 
         // dessin de la porte
