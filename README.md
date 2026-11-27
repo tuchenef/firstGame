@@ -1,31 +1,39 @@
-# idkman
+# First Game
+### Made by Mouad Assal
 
 ## Project Presentation
-This project is a 2D game with an unique objective, reach the door to get to the next level.
+This project is a 2D game with a simple objective: reach the door to get to the next level.
 
 ## Technologies used
 
 - **Java** : Langage used in the project.
-- **libGDX** : A Java framework used to build video games.
-- **Gradle** : Tool used to compile code and running tests.
+- **LibGDX** : A Java framework used to develop the game.
+- **Gradle** : Build automation tool used to compile and manage the project.
 
-## Fonctionnality
+## Game
 
-Actually the game only have one complete level. The way to play the game is pretty straighforward, by using the directionnal keys, you need to reach the door while being careful to the obstacles.
-If you succeed, you can pass onto the next level.
+The game currently features one completed level. The objective is straightforward: use the arrow keys to reach the door while avoiding obstacles.
 
-While not having much to showcase for the moment, the objective is to give each level it's unicity by setting a different mechanics for them, which we will further explore in the Futur Upgrades section down below.
+Once you reach the door, you can progress to the next level.
+
+My goal is to give each level its own identity by introducing different gameplay mechanics, which I plan to explore further in the Future Improvements section.
 
 ## Screenshots
 
-![Level 1 showcase](/assets/niveau1.png")
+![Level 1 showcase](assets/niveau1.png)
 *This how the first level starts.*
 
 
-## How to lauch the game
+## How to run the game
 
-Since the game is still in developpement, I haven't published the game in any plateform. So for now the only way to play is to download this file.
-After downloading, you should open the file in an IDE (I suggest you use ItelliJ IDEA) and select
+Since the game is still in developpement, it is not currently available as a standalone download.
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+So for now the only way to play is to download this repository. After downloading, you should open the file in an IDE (IntelliJ IDEA is recommended) and run the Lwjgl3Launcher which you can find in this path : lwjgl3/src/main/java/io.github.firstGame.lwjgl3
+
+## Futur upgrades
+
+There's still a lot to be done! Here are some of the main features I plan to implement:
+
+- **Finalizing the second level** : My plan is to introduce two monsters that roam around the level. To reach the next level, the player must get to the door without crossing their paths. Otherwise, the level must be restarted.
+- **Third level** : This one will take place in complete darkness, with the player relying on a flashlight to see their surroundings.
+- **Menu** : I plan on adding a menu to select between levels, pause the game, quit, and go to the main screen.
